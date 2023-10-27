@@ -5,12 +5,11 @@ from .routers import job_app
 
 app = FastAPI()
 
-# Note : Order matters! Whichever one matches first is the one
-
 # Include routers
 app.include_router(job_app.router)
 
 # Get Method
 @app.get("/")
 def root():
-    return {"message": "Hello World"}
+    return {"message": "Welcome to the Job App API"}
+
