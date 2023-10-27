@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from ..models import JobApp
+from ...models.job_app import JobApp
 
 router = APIRouter()
 
