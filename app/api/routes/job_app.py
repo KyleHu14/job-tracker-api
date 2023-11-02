@@ -7,13 +7,35 @@ router = APIRouter()
 # [POST Routes]
 @router.post("/jobapp")
 def create_job_app(new_job_app: JobApp):
-    return {"data" : "New Job App Created!"}
+    try:
+        # Create a new job app given the new_job_app passed through the request
+        res = supabase.table("job_apps").insert({
+            "title" : new_job_app.title,
+            "company_name" : new_job_app.company_name,
+            "location" : new_job_app.location,
+            "status" : new_job_app.status,
+            "date" : new_job_app.date,
+            "user_email" : new_job_app.user_email,
+            "link" : new_job_app.link
+        }).execute()
+
+        # Return response
+        return {"data" : res.data, "error" : "none"}
+    except Exception as err:
+        return {"data" : [], "error" : err}
 
 # [GET Routes]
 @router.get("/jobapp")
 def get_job_app():
-    job_app_data = supabase.table("job_apps").select("*").execute()
-    return {"data" : job_app_data.data}
+    try:
+        # Get data from supabase
+        res = supabase.table("job_apps").select("*").execute()
+
+        # Return Data
+        return {"data" : res.data, "error" : "none"}
+    # If an Exception has occured
+    except Exception as err:
+        return {"data" : [], "error" : err}
 
 # [DELETE Routes]
 @router.delete("/jobapp/{job_id}")
