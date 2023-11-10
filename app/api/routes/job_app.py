@@ -40,10 +40,35 @@ def get_job_app():
 # [DELETE Routes]
 @router.delete("/jobapp/{job_id}")
 def delete_job_app(job_id : int):
-    dataStr = "Deleted Job App" + job_id
-    return {"data" : "Deleted Job App"}
+    try:
+        res = supabase.table("job_apps").delete().eq("id", job_id).execute()
+
+        return {"data" : res.data, "error" : "none"}
+    # If an Exception has occured
+    except Exception as err:
+        return {"data" : [], "error" : err}
 
 # [PUT Routes]
 @router.put("/jobapp/{job_id}")
-def update_job_app(job_id:int):
-    dataStr = "Updated Job App" + job_id
+def update_job_app(job_id:int, update_job_app: JobApp):
+    # update_job_app takes on the form as an array of tuples
+    # Here is an example : 
+    # ('title', 'API title')
+    # ('company_name', '')
+    # ('location', '')
+    # ('status', '')
+    # ('date', 'API title')
+    # ('user_email', 'lloydpearce4@gmail.com')
+    # ('link', 'API title')
+    # Row represents one of these tuples
+    try:
+        updateObj = {}
+        for row in update_job_app:
+            if row[1]:
+                updateObj[row[0]] = row[1]
+
+        res = supabase.table("job_apps").update(updateObj).eq("id", job_id).execute()
+
+        return {"data" : res.data, "error" : "none"} 
+    except Exception as err:
+        return {"data" : [], "error" : err}
