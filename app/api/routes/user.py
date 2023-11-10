@@ -5,12 +5,12 @@ router = APIRouter()
 
 # [POST Routes]
 @router.post("/user")
-def create_job_app(new_user: User):
+def create_user(new_user: User):
     return {"data" : "New User Created!"}
 
 # [GET Routes]
 @router.get("/user")
-def get_job_app():
+def get_user():
     return {"data" : "Current Users"}
 
 # [DELETE Routes]

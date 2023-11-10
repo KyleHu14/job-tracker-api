@@ -4,8 +4,21 @@ from ...database import supabase
 
 router = APIRouter()
 
+# [GET Routes]
+@router.get("/jobapp", tags=["jobapp"])
+def get_job_app():
+    try:
+        # Get data from supabase
+        res = supabase.table("job_apps").select("*").execute()
+
+        # Return Data
+        return {"data" : res.data, "error" : "none"}
+    # If an Exception has occured
+    except Exception as err:
+        return {"data" : [], "error" : err}
+
 # [POST Routes]
-@router.post("/jobapp")
+@router.post("/jobapp", tags=["jobapp"])
 def create_job_app(new_job_app: JobApp):
     try:
         # Create a new job app given the new_job_app passed through the request
@@ -24,21 +37,8 @@ def create_job_app(new_job_app: JobApp):
     except Exception as err:
         return {"data" : [], "error" : err}
 
-# [GET Routes]
-@router.get("/jobapp")
-def get_job_app():
-    try:
-        # Get data from supabase
-        res = supabase.table("job_apps").select("*").execute()
-
-        # Return Data
-        return {"data" : res.data, "error" : "none"}
-    # If an Exception has occured
-    except Exception as err:
-        return {"data" : [], "error" : err}
-
 # [DELETE Routes]
-@router.delete("/jobapp/{job_id}")
+@router.delete("/jobapp/{job_id}", tags=["jobapp"])
 def delete_job_app(job_id : int):
     try:
         res = supabase.table("job_apps").delete().eq("id", job_id).execute()
@@ -49,7 +49,7 @@ def delete_job_app(job_id : int):
         return {"data" : [], "error" : err}
 
 # [PUT Routes]
-@router.put("/jobapp/{job_id}")
+@router.put("/jobapp/{job_id}", tags=["jobapp"])
 def update_job_app(job_id:int, update_job_app: JobApp):
     # update_job_app takes on the form as an array of tuples
     # Here is an example : 
