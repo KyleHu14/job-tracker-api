@@ -1,3 +1,4 @@
+
 # Instructions for Starting the Project
 
 1. Start the venv by running the command "./venv/Scripts/activate"
@@ -21,3 +22,22 @@
 ## Job App 
 ### GET /jobapp
 Returns a list of job applications. Each job application is represented by an object with the following string fields : "id", "title", "company_name", "location", "status", "date", "user_email", "link".
+
+Example Response : 
+
+    {
+    	    "data": [
+    	        {
+    	            "id": 61,
+    	            "title": "SWE Intern",
+    	            "company_name": "Amazon",
+    	            "location": "Redwood, CA",
+    	            "status": "rejected",
+    	            "date": "1/1/2021",
+    	            "user_email": "email@gmail.com",
+    	            "link": "jobapp.com"
+    	        }
+    	    ],
+    	    "error": "none"
+    	}
+
