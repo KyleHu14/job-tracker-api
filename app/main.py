@@ -1,6 +1,7 @@
 # Fast API
 from fastapi import FastAPI, APIRouter
 
+
 # Routers
 from .api.routes import job_app
 from .api.routes import user
@@ -18,3 +19,4 @@ app.include_router(user.router)
 @app.get("/")
 def root():
     return {"message": "Welcome to the Job App API"}
+
