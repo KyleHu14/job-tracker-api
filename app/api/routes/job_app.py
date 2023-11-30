@@ -5,7 +5,7 @@ from ...database import supabase
 router = APIRouter()
 
 # [GET Routes]
-@router.get("/jobapp", tags=["jobapp"])
+@router.get("/jobapp")
 def get_job_app():
     try:
         # Get data from supabase
@@ -18,7 +18,7 @@ def get_job_app():
         return {"data" : [], "error" : err}
 
 # [POST Routes]
-@router.post("/jobapp", tags=["jobapp"])
+@router.post("/jobapp")
 def create_job_app(new_job_app: JobApp):
     try:
         # Create a new job app given the new_job_app passed through the request
@@ -38,7 +38,7 @@ def create_job_app(new_job_app: JobApp):
         return {"data" : [], "error" : err}
 
 # [PUT Routes]
-@router.put("/jobapp/{job_id}", tags=["jobapp"])
+@router.put("/jobapp/{job_id}")
 def update_job_app(job_id:int, update_job_app: JobApp):
     # update_job_app takes on the form as an array of tuples
     # Here is an example : 
@@ -63,7 +63,7 @@ def update_job_app(job_id:int, update_job_app: JobApp):
         return {"data" : [], "error" : err}
 
 # [DELETE Routes]
-@router.delete("/jobapp/{job_id}", tags=["jobapp"])
+@router.delete("/jobapp/{job_id}")
 def delete_job_app(job_id : int):
     try:
         res = supabase.table("job_apps").delete().eq("id", job_id).execute()
