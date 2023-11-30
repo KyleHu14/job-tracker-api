@@ -37,17 +37,6 @@ def create_job_app(new_job_app: JobApp):
     except Exception as err:
         return {"data" : [], "error" : err}
 
-# [DELETE Routes]
-@router.delete("/jobapp/{job_id}", tags=["jobapp"])
-def delete_job_app(job_id : int):
-    try:
-        res = supabase.table("job_apps").delete().eq("id", job_id).execute()
-
-        return {"data" : res.data, "error" : "none"}
-    # If an Exception has occured
-    except Exception as err:
-        return {"data" : [], "error" : err}
-
 # [PUT Routes]
 @router.put("/jobapp/{job_id}", tags=["jobapp"])
 def update_job_app(job_id:int, update_job_app: JobApp):
@@ -70,5 +59,16 @@ def update_job_app(job_id:int, update_job_app: JobApp):
         res = supabase.table("job_apps").update(updateObj).eq("id", job_id).execute()
 
         return {"data" : res.data, "error" : "none"} 
+    except Exception as err:
+        return {"data" : [], "error" : err}
+
+# [DELETE Routes]
+@router.delete("/jobapp/{job_id}", tags=["jobapp"])
+def delete_job_app(job_id : int):
+    try:
+        res = supabase.table("job_apps").delete().eq("id", job_id).execute()
+
+        return {"data" : res.data, "error" : "none"}
+    # If an Exception has occured
     except Exception as err:
         return {"data" : [], "error" : err}
