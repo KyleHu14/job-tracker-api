@@ -2,6 +2,8 @@ from fastapi import APIRouter
 from ...models.job_app import JobApp
 from ...database import supabase
 
+from ...utils import convert_to_object
+
 router = APIRouter()
 
 # [GET Routes]
@@ -51,10 +53,8 @@ def update_job_app(job_id:int, update_job_app: JobApp):
     # ('link', 'API title')
     # Row represents one of these tuples
     try:
-        updateObj = {}
-        for row in update_job_app:
-            if row[1]:
-                updateObj[row[0]] = row[1]
+        # We convert the update_job_app into an object since .update() takes in an object
+        updateObj = convert_to_object(update_job_app)
 
         res = supabase.table("job_apps").update(updateObj).eq("id", job_id).execute()
 
