@@ -44,6 +44,10 @@ def create_job_app(new_job_app: JobApp):
             "link" : new_job_app.link
         }).execute()
 
+        # Increment total apps
+        incrementRes = supabase.rpc("increment_total_apps", params={"useremail" : new_job_app.user_email}).execute()
+        incrementStatusRes = supabase.rpc(f"increment_{new_job_app.status}_apps", params={"useremail" : new_job_app.user_email}).execute()
+
         # Return response
         return {"data" : res.data, "error" : "none"}
     except Exception as err:
