@@ -72,10 +72,10 @@ def test_put_user():
     # Prepare the payload
     payload = { 
         "email" : "changed@gmail.com",
-        "total_apps" : "",
-        "rejected_apps" : "",
-        "pending_apps" : "",
-        "accepted_apps" : ""
+        "total_apps" : 1000,
+        "rejected_apps" : -1,
+        "pending_apps" : -1,
+        "accepted_apps" : -1
     }
 
     # With the job id, we can call a put request, we will change two fields
@@ -98,43 +98,43 @@ def test_put_user():
 
     # Check for actual errors in the data returned
     assert jsonData["email"] == "changed@gmail.com"
-    assert jsonData["total_apps"] == 5
+    assert jsonData["total_apps"] == 1000
     assert jsonData["rejected_apps"] == 3
     assert jsonData["pending_apps"] == 2
     assert jsonData["accepted_apps"] == 0
 
-# def test_delete_user():
-#     # The delete route requires an id, so we have to call get on the API and grab the id first before testing 
-#     getResponse = client.get(
-#         "/user"
-#     )
+def test_delete_user():
+    # The delete route requires an id, so we have to call get on the API and grab the id first before testing 
+    getResponse = client.get(
+        "/user"
+    )
 
-#     # Check for response errors
-#     assert getResponse.status_code == 200
+    # Check for response errors
+    assert getResponse.status_code == 200
 
-#     # Get the job id of the most recently created job application
-#     userId = getResponse.json()["data"][-1]["id"]
+    # Get the job id of the most recently created job application
+    userId = getResponse.json()["data"][-1]["id"]
 
-#     # With the job id, we can call a delete request
-#     delResponse = client.delete(
-#         f"/user/{userId}"
-#     )
+    # With the job id, we can call a delete request
+    delResponse = client.delete(
+        f"/user/{userId}"
+    )
 
-#     # Get the general json data
-#     jsonResponse = delResponse.json()
+    # Get the general json data
+    jsonResponse = delResponse.json()
 
-#     # Get the JSON data of the put response
-#     jsonData = jsonResponse["data"][0]
+    # Get the JSON data of the put response
+    jsonData = jsonResponse["data"][0]
 
-#     # Check for response errors
-#     assert delResponse.status_code == 200
+    # Check for response errors
+    assert delResponse.status_code == 200
 
-#     # Check for any errors db side
-#     assert jsonResponse["error"] == "none"
+    # Check for any errors db side
+    assert jsonResponse["error"] == "none"
 
-#     # Check for actual errors in the data returned
-#     assert jsonData["email"] == "changed@gmail.com"
-#     assert jsonData["total_apps"] == 5
-#     assert jsonData["rejected_apps"] == 3
-#     assert jsonData["pending_apps"] == 2
-#     assert jsonData["accepted_apps"] == 0
+    # Check for actual errors in the data returned
+    assert jsonData["email"] == "changed@gmail.com"
+    assert jsonData["total_apps"] == 1000
+    assert jsonData["rejected_apps"] == 3
+    assert jsonData["pending_apps"] == 2
+    assert jsonData["accepted_apps"] == 0

@@ -2,9 +2,21 @@ from fastapi import APIRouter
 from ...models.user import User
 from ...database import supabase
 
-from ...utils import convert_to_object
-
 router = APIRouter()
+
+def convert_to_object(inputClass):
+    '''
+    Converts a pydantic class into a dictionary. 
+    '''
+    finalObj = {}
+
+    for row in inputClass:
+        if row[0] == "email" and row[1]:
+            finalObj[row[0]] = row[1]
+        elif row[1] > -1:
+            finalObj[row[0]] = row[1]
+        
+    return finalObj
 
 # [GET Routes]
 @router.get("/user")
