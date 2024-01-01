@@ -1,9 +1,12 @@
 
 # Instructions for Starting the Project
 
-1. Start the venv by running the command "./venv/Scripts/activate"
+1. Install all the requirements by running : pip install -r requirements.txt 
 
-2. Run the command "uvicorn app.main:app"
+2. Start the venv by running the command : ./venv/Scripts/activate
+
+3. Run the command "uvicorn app.main:app"
+
 
   
 
