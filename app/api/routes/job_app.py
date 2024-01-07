@@ -82,6 +82,10 @@ def delete_job_app(job_id : int):
     try:
         res = supabase.table("job_apps").delete().eq("id", job_id).execute()
 
+        # Decrement total apps
+        decrementRes = supabase.rpc("decrement_total_apps", params={"useremail" : res.data[0]["user_email"]}).execute()
+        decrementStatusRes = supabase.rpc(f"decrement_{res.data[0]["status"]}_apps", params={"useremail" : res.data[0]["user_email"]}).execute()
+
         return {"data" : res.data, "error" : "none"}
     # If an Exception has occured
     except Exception as err:
