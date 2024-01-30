@@ -1,4 +1,3 @@
-
 # Instructions for Starting the Project
 
 1. Install all the requirements by running : pip install -r requirements.txt 
